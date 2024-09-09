@@ -246,11 +246,11 @@
 						<li>Bytecode != assembly</li>
 						<li>Interpreters can still be written to be highly efficient</li>
 						<li>i.e. <a
-								href="https://www.reddit.com/r/programming/comments/badl2/comment/c0lrus0/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button">LuaJIT</a>
+								href="https://www.reddit.com/r/programming/comments/badl2/comment/c0lrus0/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button">LuaJIT(i.e.
+								just a 30x difference)</a>
 						</li>
 						<li>CPython is not one of those interpreters</li>
-						<li>Fast things in Python are not written in Python</li>
-
+						<li class="fragment">Fast things in Python are not written in Python</li>
 					</ul>
 					<p class="fragment" style="font-size: 15px;">I still write a lot of it</p>
 				</section>
@@ -262,12 +262,15 @@
 			</section>
 			<section>
 				<h2>Demo time</h2>
-				<!--Show debug and then release version-->
+				<aside>Show a debug and a release version</aside>
 			</section>
 			<section>
 				<h3>Seems to be!</h3>
-				<p>~3x or 90Mflop/s</p>
-				<p>~25x or 0.75Gflop/s</p>
+				<ul>
+					<li>~3x or 90Mflop/s</li>
+					<li>~25x or 0.75Gflop/s</li>
+				</ul>
+
 			</section>
 			<section>
 				<h3>Abstract machine and optimization</h3>
@@ -275,20 +278,18 @@
 					<ul>
 						<li>Rust isn't "close to the metal"</li>
 						<li>Neither is C or C++</li>
-						<li>In every case we're programming against the abstract machine</li>
+						<li>In every case we're programming against an abstract machine</li>
 						<li>That's where we get undefined behavior and other fun things from</li>
 					</ul>
 				</section>
 				<section>
 					<ul>
 						<li>LLVM is really good at translating the abstract to concrete</li>
-						<li><a>First version</a></li>
+						<li><a href="https://godbolt.org/z/YrPhTxE7h">First version</a></li>
 						<li><a>Second version</a></li>
 					</ul>
+					<aside>Don't get scared. A small intro to reading assembly.</aside>
 				</section>
-
-			</section>
-
 			</section>
 			<!-- <section>
                 <h3 style="margin-bottom: 0;">Coming back to hardware</h3>
