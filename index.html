@@ -82,6 +82,9 @@
 				</ul>
 			</section>
 			<section>
+				<!-- <aside>
+					Hopefully by this point you want your software to be performant. But what does it even mean?
+				</aside> -->
 				<h3>What is Performance?</h3>
 				<section>
 					<ul>
@@ -153,6 +156,7 @@
 						<img src="./assets/corei9.jpg" alt="Core i9 Processor"
 							style="width:400px; height: fit-content; display:inline-block; vertical-align:middle;">
 					</div>
+					<em class="fragment" style="font-size: 14;">We'll see why and how shortly</em>
 				</section>
 			</section>
 			<section>
@@ -161,33 +165,34 @@
 			</section>
 			<section>
 				<h2>Demo time</h2>
+				<!-- Start with a 100, increase to 400 -->
 			</section>
 			<section>
-				<h3>Was it good?</h3>
-				<p>Let's see!</p>
+				<h3>How's the performance</h3>
+				<p class="fragment">Let's see!</p>
 			</section>
 			<section>
 				<h3>Boids</h3>
 				<section>
-					<p>A really simple algorithm giving surprisingly good results</p>
-					<ul>
-						<li>Each boid follows 3 simple rules</li>
-						<li>Alignment</li>
-						<li>Cohesion</li>
-						<li>Separation</li>
-					</ul>
+					<p>A really simple algorithm giving good results</p>
+					<p class="fragment">Each boid follows 3 simple rules</p>
 				</section>
 				<section>
-					<p>Alignment</p>
-					<img src="./assets/boid-alignment.png" style="width:600px;" />
+					<div>
+						<img src="./assets/boid-alignment.png"
+							style="height:400px;width:600px;margin: 0; padding: 0;" />
+						<p style="margin: 0; padding: 0;">Alignment</p>
+					</div>
 				</section>
 				<section>
-					<p>Cohesion</p>
-					<img src="./assets/boid-cohesion.png" style="width:600px;" />
+					<div>
+						<img src="./assets/boid-cohesion.png" style="height:400px;width:600px;margin: 0; padding: 0;" />
+						<p style="margin: 0; padding: 0;">Cohesion</p>
+					</div>
 				</section>
 				<section>
-					<p>Separation</p>
-					<img src="./assets/boid-separation.png" style="width:600px;">
+					<img src="./assets/boid-separation.png" style="height:400px;width:600px;margin: 0; padding: 0;">
+					<p style="margin: 0; padding: 0;">Separation</p>
 				</section>
 				<section>
 					<p>For each boid out of N</p>
@@ -246,10 +251,10 @@
 						<li>Bytecode != assembly</li>
 						<li>Interpreters can still be written to be highly efficient</li>
 						<li>i.e. <a
-								href="https://www.reddit.com/r/programming/comments/badl2/comment/c0lrus0/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button">LuaJIT(i.e.
-								just a 30x difference)</a>
+								href="https://www.reddit.com/r/programming/comments/badl2/comment/c0lrus0/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button">LuaJIT(
+								just a 30x difference compared to C on average)</a>
 						</li>
-						<li>CPython is not one of those interpreters</li>
+						<li class="fragment">CPython is not one of those interpreters</li>
 						<li class="fragment">Fast things in Python are not written in Python</li>
 					</ul>
 					<p class="fragment" style="font-size: 15px;">I still write a lot of it</p>
@@ -257,44 +262,223 @@
 			</section>
 			<section>
 				<h3>Rewrite it in Rust!</h3>
-				<p>While keeping as much semantics as possible</p>
 				<p class="fragment">Is it better?</p>
 			</section>
 			<section>
 				<h2>Demo time</h2>
-				<aside>Show a debug and a release version</aside>
+				<!-- <aside>Show a debug and a release version</aside> -->
 			</section>
 			<section>
 				<h3>Seems to be!</h3>
 				<ul>
-					<li>~3x or 90Mflop/s</li>
-					<li>~25x or 0.75Gflop/s</li>
+					<li>~3x or 96Mflop/s</li>
+					<li>~25x or 0.8Gflop/s</li>
 				</ul>
-
+				<p class="fragment">It's the same code though, what's the difference?</p>
 			</section>
 			<section>
 				<h3>Abstract machine and optimization</h3>
 				<section>
 					<ul>
-						<li>Rust isn't "close to the metal"</li>
-						<li>Neither is C or C++</li>
-						<li>In every case we're programming against an abstract machine</li>
-						<li>That's where we get undefined behavior and other fun things from</li>
+						<li class="fragment">Rust isn't "close to the metal"</li>
+						<li class="fragment">Neither is C or C++</li>
+						<li class="fragment">In every case we're programming against an abstract machine</li>
+						<li class="fragment">That's where we get undefined behavior and other fun things from</li>
+					</ul>
+				</section>
+				<section>
+					<ul>
+						<li>The closest you can get to metal is assembly</li>
+						<li class="fragment">It's not that scary!</li>
+						<li class="fragment">PS: We are not touching Verilog</li>
+						<!-- There's microcode, but cpus hide it -->
 					</ul>
 				</section>
 				<section>
 					<ul>
 						<li>LLVM is really good at translating the abstract to concrete</li>
-						<li><a href="https://godbolt.org/z/YrPhTxE7h">First version</a></li>
-						<li><a>Second version</a></li>
+						<li><a href="https://godbolt.org/z/6Mh4a3YEM">First version</a></li>
+						<li><a href="https://godbolt.org/z/Ye3aqbdj7">Second version</a></li>
+						<li class="fragment">Godbolt is awesome</li>
 					</ul>
-					<aside>Don't get scared. A small intro to reading assembly.</aside>
 				</section>
 			</section>
-			<!-- <section>
-                <h3 style="margin-bottom: 0;">Coming back to hardware</h3>
-                <img src="Zen3_arch_5.jpg" style="height: 630px;" />
-            </section> -->
+			<section>
+				<h3>What next?</h3>
+				<p>We are still 62x slower</p>
+				<p class="fragment">We <em>won't</em> improve the algorithm</p>
+				<p>Let's profile!</p>
+			</section>
+			<section>
+				<h3>Short intro to profilers</h3>
+				<section>
+					<ul>
+						<li>Instrumentation</li>
+						<li>Sampling</li>
+					</ul>
+				</section>
+				<section>
+					<h4>Instrumentation</h4>
+					<ul>
+						<li>Manually place zones to measure</li>
+						<li>Continuous timeline view</li>
+						<li>Very low overhead</li>
+						<li class="fragment">Uninstrumented code won't show up</li>
+					</ul>
+					<p class="fragment">Tracy, Unreal Insights, Optick</p>
+				</section>
+				<section>
+					<h4>Sampling</h4>
+					<ul>
+						<li>Periodically stops the program and see where it is</li>
+						<li>Generally higher overhead</li>
+						<li>Doesn't require any preparation</li>
+						<li>Can miss short lived events</li>
+					</ul>
+					<p class="fragment">VerySleepy, Intel VTune, AMD uProf</p>
+				</section>
+				<section>
+					<p>Both are very useful</p>
+					<div class="fragment">
+						<p>State of the art hybrid profilers are magic. Look at <a
+								href="https://github.com/janestreet/magic-trace">Magic Trace</a></p>
+					</div>
+				</section>
+			</section>
+			<section>
+				<h3>Profiling time</h3>
+				<!--Load up tracy, show mean and median of update_boids-->
+				<section>
+					<div class="fragment">
+						<p>Wait, are we slower now?</p>
+						<p>~0.65Gflop/sec</p>
+					</div>
+				</section>
+				<section>
+					<p>Let's take a closer look!</p>
+					<!--Rant about amd vs intel tooling, show amd uprof, memory configuration-->
+				</section>
+			</section>
+			<section>
+				<!--
+				AMDuProf-boids-rs-EBP_Sep-15-2024_15-46-17 - bad
+				AMDuProf-boids-rs-EBP_Sep-15-2024_15-50-43 - better
+				-->
+				<h3>Memory architecture</h3>
+				<section>
+					<img src="./assets/bad-cache-util.png" />
+					<p>This is quite bad!</p>
+					<p class="fragment">Let's see why it's bad</p>
+				</section>
+				<section>
+					<img src="./assets/cpu-memory-gap.png" />
+					<p style="font-size: 24px;">Memory performance didn't hold up to CPU performance</p>
+				</section>
+				<section>
+					<img src="./assets/cache-arch.png" />
+					<p style="font-size: 24px;">That's why we have caches!</p>
+				</section>
+				<section>
+					<img src="./assets/memory-latency.png" />
+					<p style="font-size: 24px;">Another famous example</p>
+				</section>
+				<section>
+					<div>
+						<img src="./assets/boid_layout.png" />
+					</div>
+					<div class="fragment">
+						<p>At 4k boids we no longer fit into L2 cache!</p>
+						<p>Which is a whoppin 4MB on this machine</p>
+					</div>
+					<p class="fragment" style="font-size: 22px;">Let's move the cold data out</p>
+				</section>
+				<section>
+					<div class="fragment">
+						<img src="./assets/better-cache-util.png" />
+					</div>
+					<div class="fragment">
+						<img src="./assets/cold_data_tracy_diff.png" />
+						<p>1.52x faster!</p>
+						<!-- Emphasize that there's no changes except for no cold data -->
+					</div>
+				</section>
+			</section>
+			<section>
+				<h3>More about caches</h3>
+				<section>
+					<p>For many things we can't hope to fit in cache</p>
+					<p class="fragment">But we don't need to!</p>
+					<p class="fragment">Predictability is key</p>
+				</section>
+				<section>
+					<img src="./assets/boids-layout.png" style="width: 600px;" />
+					<p class="fragment">That's the default in Python and many other languages</p>
+					<p class="fragment">Prefetcher doesn't like it!</p>
+				</section>
+				<section>
+					<p>We want this</p>
+					<img src="./assets/contiguous-layout.png" style="width: 800px;" />
+				</section>
+				<section>
+					<p>What's the difference?</p>
+					<p class="fragment">~95ms -> ~83ms, 15% improvement</p>
+					<p class="fragment">No changes other than data layout!</p>
+				</section>
+			</section>
+
+			<section>
+				<h3>Digging further!</h3>
+				<section>
+					<img src="./assets/Zen3_arch_5.jpg" style="width: 800px;" />
+				</section>
+				<section>
+					<img src="./assets/sqrtss_chars.png" style="width: 800px;" />
+					<img src="./assets/mul-chars.png" style="width: 800px;" />
+					<p style="font-size: 18px;">Source: Agner Fog</p>
+				</section>
+				<section>
+					<p>Let's avoid it then, what's the difference?</p>
+					<p class="fragment">~83ms -> ~69ms, another 20%!</p>
+				</section>
+				<section>
+					<img src="./assets/vtune-architecture-exploration.png" style="width: 800px;" />
+					<p>Note on VTune's supremacy</p>
+				</section>
+			</section>
+			<section>
+				<h3>Going parallel</h3>
+				<section>
+					<p>We're at ~1,4 Gflops/sec</p>
+					<p class="fragment">Still 33x slower than our potential</p>
+					<p class="fragment">But those 47Gflops are for the whole CPU!</p>
+				</section>
+				<section>
+					<p>We're using merely 12.5% of out compute power</p>
+					<p class="fragment">Let's use more!</p>
+				</section>
+				<section>
+					<p>Boids lend themselves well to parallelism</p>
+					<ul>
+						<li>Double buffer old and new boids</li>
+						<li>Give each thread a boid to update</li>
+						<li>Swap buffers</li>
+					</ul>
+				</section>
+				<section>
+					<img src="./assets/work_distr.png" />
+					<p>Kinda like this</p>
+					<p style="font-size: 18px;" class="fragment">Wink</p>
+				</section>
+				<section>
+					<p>Let's see, how it goes</p>
+					<p class="fragment">Pretty good! 69ms -> 10ms</p>
+				</section>
+			</section>
+			<section>
+				<h3>Conflicting threads</h3>
+				<section>
+				</section>
+			</section>
 		</div>
 	</div>
 	<script src="dist/reveal.js"></script>
