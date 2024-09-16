@@ -169,7 +169,7 @@
 			</section>
 			<section>
 				<h3>How's the performance</h3>
-				<p class="fragment">Let's see!</p>
+				<p class="fragment">Let's do some math!</p>
 			</section>
 			<section>
 				<h3>Boids</h3>
@@ -220,8 +220,10 @@
 			</section>
 			<section>
 				<h3>Profiling time</h3>
-				<p>This time we basically guessed right</p>
-				<p class="fragment">Let's correct to ~32M flop/s</p>
+				<section>
+					<p>This time we basically guessed right</p>
+					<p class="fragment">Let's correct to ~32M flop/s</p>
+				</section>
 			</section>
 			<section>
 				<h3>This machine</h3>
@@ -307,7 +309,7 @@
 				<h3>What next?</h3>
 				<p>We are still 62x slower</p>
 				<p class="fragment">We <em>won't</em> improve the algorithm</p>
-				<p>Let's profile!</p>
+				<p class="fragment">Let's profile!</p>
 			</section>
 			<section>
 				<h3>Short intro to profilers</h3>
@@ -319,9 +321,9 @@
 				</section>
 				<section>
 					<h4>Instrumentation</h4>
+					<img src="./assets/instrumentation_prof_screen.png" style="height: 200px;" />
 					<ul>
 						<li>Manually place zones to measure</li>
-						<li>Continuous timeline view</li>
 						<li>Very low overhead</li>
 						<li class="fragment">Uninstrumented code won't show up</li>
 					</ul>
@@ -329,11 +331,11 @@
 				</section>
 				<section>
 					<h4>Sampling</h4>
+					<img src="./assets/flamegraph_prof_screen.png" style="height: 200px;" />
 					<ul>
-						<li>Periodically stops the program and see where it is</li>
-						<li>Generally higher overhead</li>
-						<li>Doesn't require any preparation</li>
-						<li>Can miss short lived events</li>
+						<li>Periodically stops the program to record callstack</li>
+						<li>Aggreagation can miss short lived events</li>
+						<li class="fragment">Vendor specific ones provide a lot on top</li>
 					</ul>
 					<p class="fragment">VerySleepy, Intel VTune, AMD uProf</p>
 				</section>
@@ -424,12 +426,15 @@
 					<p class="fragment">~95ms -> ~83ms, 15% improvement</p>
 					<p class="fragment">No changes other than data layout!</p>
 				</section>
+				<section>
+					<p>1.15Gflop/sec</p>
+					<p>Still 41x slower!</p>
+				</section>
 			</section>
-
 			<section>
 				<h3>Digging further!</h3>
 				<section>
-					<img src="./assets/Zen3_arch_5.jpg" style="width: 800px;" />
+					<img src="./assets/Zen3_arch_5.jpg" style="width: 1000px;" />
 				</section>
 				<section>
 					<img src="./assets/sqrtss_chars.png" style="width: 800px;" />
@@ -448,12 +453,12 @@
 			<section>
 				<h3>Going parallel</h3>
 				<section>
-					<p>We're at ~1,4 Gflops/sec</p>
+					<p>We're at ~1.4 Gflops/sec</p>
 					<p class="fragment">Still 33x slower than our potential</p>
 					<p class="fragment">But those 47Gflops are for the whole CPU!</p>
 				</section>
 				<section>
-					<p>We're using merely 12.5% of out compute power</p>
+					<p>We're using merely 12.5% of our CPU</p>
 					<p class="fragment">Let's use more!</p>
 				</section>
 				<section>
@@ -467,21 +472,153 @@
 				<section>
 					<img src="./assets/work_distr.png" />
 					<p>Kinda like this</p>
-					<p style="font-size: 18px;" class="fragment">Wink</p>
 				</section>
 				<section>
 					<p>Let's see, how it goes</p>
-					<p class="fragment">Pretty good! 69ms -> 12.5ms</p>
+					<div class="fragment">
+						<p>Pretty good! 69ms -> 12.5ms</p>
+						<p>~7.6Gflop/sec</p>
+					</div>
 				</section>
 			</section>
 			<section>
-				<h3>Conflicting threads</h3>
+				<h3>Sharing data</h3>
 				<section>
+					<p>Was our threading schema a good idea?</p>
+					<p class="fragment">It's all about caches again!</p>
+				</section>
+				<section>
+					<p style="padding: 0;margin: 0;">Modern CPU is a distributed system</p>
+					<img src="./assets/cache-coherence-1.png" style="height: 500px;padding: 0;margin: 0;" />
+				</section>
+				<section>
+					<p>A scary picture - MOESI state machine</p>
+					<img src="./assets/moesi.jpg" style="height: 450px;padding: 0;margin: 0;" />
+					<p class="fragment" style="padding: 0;margin: 0;font-size: 20px;">That's how we get atomics and
+						memory ordering</p>
+				</section>
+				<section>
+					<p>CPU thinks of data in <em>cache lines</em></p>
+					<p>Usually that's a 64 bytes-long chunk of data</p>
+					<p class="fragment">You can't actually load or store less data to RAM</p>
+				</section>
+				<section>
+					<p>So using some amazing MS Paint art</em></p>
+					<img src="./assets/false-sharing1.png" style="height: 500px;padding: 0;margin: 0;" />
+				</section>
+				<section>
+					<p>So using some amazing MS Paint art</em></p>
+					<img src="./assets/false-sharing2.png" style="height: 500px;padding: 0;margin: 0;" />
+				</section>
+				<section>
+					<p>So using some amazing MS Paint art</em></p>
+					<img src="./assets/false-sharing3.png" style="height: 500px;padding: 0;margin: 0;" />
+				</section>
+				<section>
+					<p>This is called <em>false sharing</em></p>
+					<img src="./assets/false-sharing.png" style="height: 500px;padding: 0;margin: 0;" />
+				</section>
+				<section>
+					<img src="./assets/work_distr.png" />
+					<p>Our boids are just 12 bytes each</p>
+					<p>We run a real chance of multiple threads contending!</p>
+				</section>
+				<section>
+					<img src="./assets/better-work-distr.png" />
+					<p>Let's share in bigger chunks!</p>
+				</section>
+			</section>
+			<section>
+				<h3>Demo Time</h3>
+				<div class="fragment">
+					<p>12.5ms -> 8.8ms, ~40% better!</p>
+					<p>~11.3Gflop/sec</p>
+				</div>
+			</section>
+			<section>
+				<h3>Data parallelism</h3>
+				<section>
+					<p>So far we have been generally doing one thing at a time</p>
+					<ul class="fragment">
+						<li>Load one boid</li>
+						<li>Load one more boid</li>
+						<li>Calculate distance</li>
+						<li>Compare to some threshold</li>
+						<li>...</li>
+					</ul>
+					<p class="fragment">In other words we've been doing <em>scalar</em> processing</p>
+					<!--Just like in the 70s-->
+				</section>
+				<section>
+					<p>All the modern CPUs are vector!</p>
+					<div class="fragment">
+						<p style="padding: 0;font-size: 20px;">There's actually no scalar float processing on
+							x86-64!</p>
+						<img src="./assets/scalar_distance.png" style="padding: 0;margin: 0;" />
+						<img src="./assets/xmm.png" style="width: 400px;padding: 0;margin: 0;" />
+					</div>
+				</section>
+				<section>
+					<p>SIMD - Single Instruction Multiple Data</p>
+					<img src="./assets/simd.png" style="width: 600px;" />
+				</section>
+				<section>
+					<p>SIMD extensions are architecture-specific</p>
+					<ul>
+						<li>X86-64: SSE, AVX2, AVX512</li>
+						<li>ARM: Neon, SVE</li>
+						<li>RISC-V: RVV</li>
+					</ul>
+				</section>
+				<section>
+					<p>Let's vectorize!</p>
+				</section>
+			</section>
+			<section>
+				<h3>Demo Time</h3>
+				<section>
+					<div class="fragment">
+						<p>14.5ms</p>
+						<p>~6.7Gflop/sec</p>
+						<p>🤔</p>
+					</div>
+				</section>
+				<section>
+					<p>That's single threaded!</p>
+					<div class="fragment">
+						<p>2.2ms = ~44 GFlop/sec</p>
+						<p>🚀</p>
+					</div>
+					<p class="fragment" style="font-size: 20px;">Let's call it!</p>
+				</section>
+			</section>
+			<section>
+				<h3>Notes on SIMD implementation</h3>
+				<section>
+					<p>Autovectorization won't cut it</p>
+					<div class="fragment">
+						<p>Compiler won't drastically restructure data for you</p>
+						<div style="text-align:center;">
+							<img src="./assets/simd_rust_layout.png"
+								style="height:150px; width: fit-content; display:inline-block; vertical-align:middle;">
+							<img src="./assets/simd_layout_vis.png" alt="Core i9 Processor"
+								style="height:150px; width: fit-content; display:inline-block; vertical-align:middle;">
+						</div>
+						<p style="font-size: 16px;padding: 0; margin: 0;">is very different to</p>
+						<img src="./assets/contiguous-layout.png" style="height:150px;">
+					</div>
+				</section>
+				<section>
+					<p>Autovectorization won't cut it</p>
+					<div>
+						<p>Compiler also won't rewrite yor algorithm to be branchless</p>
+						<img src="./assets/branchless.png" style="height: 300px;">
+					</div>
 				</section>
 			</section>
 		</div>
 	</div>
-	<script src="dist/reveal.js"></script>
+	<script src=" dist/reveal.js"></script>
 	<script>
 		Reveal.initialize({ history: true, slideNumber: true });
 	</script>
