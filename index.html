@@ -638,7 +638,8 @@
 					<p class="fragment">For much simpler cases compiler does help</p>
 				</section>
 				<section>
-					<p style="font-size: 20px;padding: 0; margin: 0;">So do you need to hand-roll assembly or horrible intrinsic-infested code?</p>
+					<p style="font-size: 20px;padding: 0; margin: 0;">So do you need to hand-roll assembly or horrible
+						intrinsic-infested code?</p>
 					<div style="text-align:center;">
 						<img src="./assets/simd-asm.png"
 							style="height:400px; width: 450px; display:inline-block; vertical-align:middle;">
@@ -654,7 +655,8 @@
 						<li>Rust's std::simd <em style="font-size: 16px;">which I used</em></li>
 						<li>Google's Highway for C++</li>
 					</ul>
-					<p class="fragment" style="font-size: 24px;">Though sometimes you might want to still hand-roll ASM</p>
+					<p class="fragment" style="font-size: 24px;">Though sometimes you might want to still hand-roll ASM
+					</p>
 				</section>
 			</section>
 			<section>
@@ -684,13 +686,15 @@
 					</ul>
 				</section>
 				<section>
-					<img src="./assets/demo_final.png" style="height: 250px;margin: 0;padding: 0;"/>
+					<img src="./assets/demo_final.png" style="height: 250px;margin: 0;padding: 0;" />
 					<p>We did get a 1350x boost in performance, by...</p>
-					<ul>
+					<ul style="font-size: 36px;">
 						<li class="fragment">Thinking about <em>what is</em> the workload</li>
 						<li class="fragment">Measuring the performance</li>
 						<li class="fragment">Following the data and showing mechanical sympathy</li>
 					</ul>
+					<p class="fragment" style="font-size: 18px;">We could also get rid of $O(n^2)$ thing and/or move
+						to GPU</p>
 				</section>
 				<section>
 					<p>But I'm doing <em>X</em> development, it doesn't apply!</p>
@@ -713,8 +717,10 @@
 				<section>
 					<p>Some great resources</p>
 					<ul>
-						<li><a href="https://www.computerenhance.com/p/welcome-to-the-performance-aware">Casey Muratori's Performance Aware Programming course</a></li>
-						<li><a href="https://www.brendangregg.com/systems-performance-2nd-edition-book.html">Brendan Gregg's Systems Performance book</a></li>
+						<li><a href="https://www.computerenhance.com/p/welcome-to-the-performance-aware">Casey
+								Muratori's Performance Aware Programming course</a></li>
+						<li><a href="https://www.brendangregg.com/systems-performance-2nd-edition-book.html">Brendan
+								Gregg's Systems Performance book</a></li>
 						<li><a href="https://lemire.me/blog/">Daniel Lemire's blog</a></li>
 						<li><a href="https://easyperf.net/">Denis Bakhvalov's blog and book</a></li>
 						<li><a href="https://www.agner.org/optimize/">Agner Fog's optimization manuals</a></li>
