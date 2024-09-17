@@ -415,7 +415,8 @@
 				<section>
 					<p style="padding-top: 20px;">Our memory layout</p>
 					<img src="./assets/boids-layout.png" style="width: 600px;padding: 0;margin: 0;" />
-					<p class="fragment" style="padding: 0;margin: 0;">That's the default in Python and many other languages</p>
+					<p class="fragment" style="padding: 0;margin: 0;">That's the default in Python and many other
+						languages</p>
 					<p class="fragment" style="padding: 0;margin: 0;">Prefetcher doesn't like it!</p>
 				</section>
 				<section>
@@ -446,12 +447,17 @@
 				</section>
 				<section>
 					<p>Let's avoid it then</p>
-					<p style="font-size: 20px;">\[\begin{aligned} \sqrt{{(x_2 - x_1)^2 + (y_2 - y_1)^2}} < max \Rightarrow (x_2 - x_1)^2 + (y_2 - y_1)^2 < max^2 \end{aligned} \]</p>
-					<div class="fragment" style="text-align: center;">
-						<img src="./assets/close_enough_sqrt.png" style="width: 400px;height: fit-content; display:inline-block; vertical-align:middle;"/>
-						<p style="font-size: 18px;height: fit-content; display:inline-block; vertical-align:middle;">-></p>
-						<img src="./assets/close_enough_mul.png" style="width: 400px;height: fit-content; display:inline-block; vertical-align:middle;"/>
-					</div>
+					<p style="font-size: 20px;">\[\begin{aligned} \sqrt{{(x_2 - x_1)^2 + (y_2 - y_1)^2}} < max
+							\Rightarrow (x_2 - x_1)^2 + (y_2 - y_1)^2 < max^2 \end{aligned} \]</p>
+							<div class="fragment" style="text-align: center;">
+								<img src="./assets/close_enough_sqrt.png"
+									style="width: 400px;height: fit-content; display:inline-block; vertical-align:middle;" />
+								<p
+									style="font-size: 18px;height: fit-content; display:inline-block; vertical-align:middle;">
+									-></p>
+								<img src="./assets/close_enough_mul.png"
+									style="width: 400px;height: fit-content; display:inline-block; vertical-align:middle;" />
+							</div>
 				</section>
 				<section>
 					<p>What's the difference?</p>
@@ -471,6 +477,7 @@
 				</section>
 				<section>
 					<p>We're using merely 12.5% of our CPU</p>
+					<img src="./assets/cpu_cores.png" style="width: 800px;" />
 					<p class="fragment">Let's use more!</p>
 				</section>
 				<section>
@@ -512,7 +519,7 @@
 				<section>
 					<p>CPU thinks of data in <em>cache lines</em></p>
 					<p>Usually that's a 64 bytes-long chunk of data</p>
-					<p class="fragment">You can't actually load or store less data to RAM</p>
+					<p class="fragment">You can't actually load less data from RAM</p>
 				</section>
 				<section>
 					<p>So using some amazing MS Paint art</em></p>
@@ -626,6 +633,11 @@
 						<p>Compiler also won't rewrite yor algorithm to be branchless</p>
 						<img src="./assets/branchless.png" style="height: 300px;">
 					</div>
+				</section>
+				<section>
+					<p>Autovectorization won't cut it</p>
+					<p>Examples before had optimization enabled but achieved 0% vectorization</p>
+					<p class="fragment">For much simpler cases compiler does help</p>
 				</section>
 			</section>
 		</div>
