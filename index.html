@@ -628,16 +628,91 @@
 					</div>
 				</section>
 				<section>
-					<p>Autovectorization won't cut it</p>
 					<div>
 						<p>Compiler also won't rewrite yor algorithm to be branchless</p>
 						<img src="./assets/branchless.png" style="height: 300px;">
 					</div>
 				</section>
 				<section>
-					<p>Autovectorization won't cut it</p>
 					<p>Examples before had optimization enabled but achieved 0% vectorization</p>
 					<p class="fragment">For much simpler cases compiler does help</p>
+				</section>
+				<section>
+					<p style="font-size: 20px;padding: 0; margin: 0;">So do you need to hand-roll assembly or horrible intrinsic-infested code?</p>
+					<div style="text-align:center;">
+						<img src="./assets/simd-asm.png"
+							style="height:400px; width: 450px; display:inline-block; vertical-align:middle;">
+						<img src="./assets/simd-intrin.png" alt="Core i9 Processor"
+							style="height:400px; width: 450px; display:inline-block; vertical-align:middle;">
+					</div>
+					<p class="fragment">No!</p>
+				</section>
+				<section>
+					<p>There are better and portable ways now!</p>
+					<ul>
+						<li>Intel's ISPC</li>
+						<li>Rust's std::simd <em style="font-size: 16px;">which I used</em></li>
+						<li>Google's Highway for C++</li>
+					</ul>
+					<p class="fragment" style="font-size: 24px;">Though sometimes you might want to still hand-roll ASM</p>
+				</section>
+			</section>
+			<section>
+				<h3>Summary</h3>
+				<section>
+					<p>We took a look at some of the performance factors</p>
+					<ul>
+						<li>Execution model</li>
+						<li>Memory caches</li>
+						<li>Memory access and prefetching</li>
+						<li>Instruction cost</li>
+						<li>Parallelism</li>
+						<li>False sharing</li>
+						<li>Vectorization</li>
+					</ul>
+				</section>
+				<section>
+					<p>We also skipped so many more</p>
+					<ul>
+						<li>Branch prediction</li>
+						<li>Atomics and synchronization</li>
+						<li>Instruction scheduling</li>
+						<li>System calls overhead</li>
+						<li>Memory bandwidth</li>
+						<li>IO: sync and async</li>
+						<li>And many more</li>
+					</ul>
+				</section>
+				<section>
+					<img src="./assets/demo_final.png" style="height: 250px;margin: 0;padding: 0;"/>
+					<p>We did get a 1350x boost in performance, by...</p>
+					<ul>
+						<li class="fragment">Thinking about <em>what is</em> the workload</li>
+						<li class="fragment">Measuring the performance</li>
+						<li class="fragment">Following the data and showing mechanical sympathy</li>
+					</ul>
+				</section>
+				<section>
+					<p>But I'm doing <em>X</em> development, it doesn't apply!</p>
+					<ul>
+						<li class="fragment">No need to hand-optimize everything from the go</li>
+						<li class="fragment">Just leave the possibility to optimize at all</li>
+						<li class="fragment">Optimizability is a <em>crucial</em> non-functional requirement</li>
+					</ul>
+				</section>
+				<section>
+					<p>Can you maybe...</p>
+					<ul>
+						<li class="fragment">Pick a compiled language: Rust, Go, Swift, even Java</li>
+						<li class="fragment">Not overly generalize and abstract from the get go</li>
+						<li class="fragment">Bring your data closer to your processing</li>
+						<li class="fragment">Make your code measurable and measure it</li>
+						<li class="fragment">Consider efficiency as one of the engenering decision drivers</li>
+					</ul>
+				</section>
+				<section>
+					<p>Thank you!</p>
+					<p style="font-size: 24px;">Questions?</p>
 				</section>
 			</section>
 		</div>
