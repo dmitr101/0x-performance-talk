@@ -334,10 +334,10 @@
 					<img src="./assets/flamegraph_prof_screen.png" style="height: 200px;" />
 					<ul>
 						<li>Periodically stops the program to record callstack</li>
-						<li>Aggreagation can miss short lived events</li>
+						<li>Aggregation can miss short lived events</li>
 						<li class="fragment">Vendor specific ones provide a lot on top</li>
 					</ul>
-					<p class="fragment">VerySleepy, Intel VTune, AMD uProf</p>
+					<p class="fragment">VerySleepy, Intel VTune, AMD uProf, Superluminal</p>
 				</section>
 				<section>
 					<p>Both are very useful</p>
@@ -349,7 +349,7 @@
 			</section>
 			<section>
 				<h3>Profiling time</h3>
-				<!--Load up tracy, show mean and median of update_boids-->
+				<!--Load up tracy WITH 4000 boids show mean and median of update_boids-->
 				<section>
 					<div class="fragment">
 						<p>Wait, are we slower now?</p>
@@ -410,12 +410,13 @@
 				<section>
 					<p>For many things we can't hope to fit in cache</p>
 					<p class="fragment">But we don't need to!</p>
-					<p class="fragment">Predictability is key</p>
+					<p class="fragment">Predictability of access is key</p>
 				</section>
 				<section>
-					<img src="./assets/boids-layout.png" style="width: 600px;" />
-					<p class="fragment">That's the default in Python and many other languages</p>
-					<p class="fragment">Prefetcher doesn't like it!</p>
+					<p style="padding-top: 20px;">Our memory layout</p>
+					<img src="./assets/boids-layout.png" style="width: 600px;padding: 0;margin: 0;" />
+					<p class="fragment" style="padding: 0;margin: 0;">That's the default in Python and many other languages</p>
+					<p class="fragment" style="padding: 0;margin: 0;">Prefetcher doesn't like it!</p>
 				</section>
 				<section>
 					<p>We want this</p>
@@ -423,6 +424,7 @@
 				</section>
 				<section>
 					<p>What's the difference?</p>
+					<!--Demo-->
 					<p class="fragment">~95ms -> ~83ms, 15% improvement</p>
 					<p class="fragment">No changes other than data layout!</p>
 				</section>
@@ -437,12 +439,22 @@
 					<img src="./assets/Zen3_arch_5.jpg" style="width: 1000px;" />
 				</section>
 				<section>
-					<img src="./assets/sqrtss_chars.png" style="width: 800px;" />
-					<img src="./assets/mul-chars.png" style="width: 800px;" />
+					<pre style="font-size: 20px;text-align: right;"> uops ltncy  CPI    port                   </pre>
+					<img src="./assets/sqrtss_chars.png" style="width: 500px;padding: 0;margin: 0;" />
+					<img src="./assets/mul-chars.png" style="width: 500px;padding: 0;margin: 0;" />
 					<p style="font-size: 18px;">Source: Agner Fog</p>
 				</section>
 				<section>
-					<p>Let's avoid it then, what's the difference?</p>
+					<p>Let's avoid it then</p>
+					<p style="font-size: 20px;">\[\begin{aligned} \sqrt{{(x_2 - x_1)^2 + (y_2 - y_1)^2}} < max \Rightarrow (x_2 - x_1)^2 + (y_2 - y_1)^2 < max^2 \end{aligned} \]</p>
+					<div class="fragment" style="text-align: center;">
+						<img src="./assets/close_enough_sqrt.png" style="width: 400px;height: fit-content; display:inline-block; vertical-align:middle;"/>
+						<p style="font-size: 18px;height: fit-content; display:inline-block; vertical-align:middle;">-></p>
+						<img src="./assets/close_enough_mul.png" style="width: 400px;height: fit-content; display:inline-block; vertical-align:middle;"/>
+					</div>
+				</section>
+				<section>
+					<p>What's the difference?</p>
 					<p class="fragment">~83ms -> ~69ms, another 20%!</p>
 				</section>
 				<section>
@@ -618,9 +630,10 @@
 			</section>
 		</div>
 	</div>
-	<script src=" dist/reveal.js"></script>
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/math/math.js"></script>
 	<script>
-		Reveal.initialize({ history: true, slideNumber: true });
+		Reveal.initialize({ history: true, slideNumber: true, plugins: [RevealMath.KaTeX] });
 	</script>
 </body>
 
